@@ -1,35 +1,33 @@
 import { useCallback, useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import { Colors } from "../../constanst/colors";
+
+import { Place } from "../../models/place";
+import Button from "../UI/Button";
 import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
-import Button from "../UI/Button";
-import { Place } from "../../models/place";
+import { Colors } from "../../constanst/colors";
 
-const PlaceForm = ({ onCreatePlace }) => {
+function PlaceForm({ onCreatePlace }) {
   const [enteredTitle, setEnteredTitle] = useState("");
-  const [pickedLocation, setPickedLocation] = useState();
   const [selectedImage, setSelectedImage] = useState();
+  const [pickedLocation, setPickedLocation] = useState();
 
-  const changeTitleHandler = (enteredTitle) => {
-    setEnteredTitle(enteredTitle);
-  };
+  function changeTitleHandler(enteredText) {
+    setEnteredTitle(enteredText);
+  }
 
-  const takeImageHandler = (imageUri) => {
+  function takeImageHandler(imageUri) {
     setSelectedImage(imageUri);
-  };
+  }
 
   const pickLocationHandler = useCallback((location) => {
     setPickedLocation(location);
   }, []);
 
-  const savePlaceHandler = () => {
-    console.log(enteredTitle);
-    console.log(selectedImage);
-    console.log(pickedLocation);
+  function savePlaceHandler() {
     const placeData = new Place(enteredTitle, selectedImage, pickedLocation);
     onCreatePlace(placeData);
-  };
+  }
 
   return (
     <ScrollView style={styles.form}>
@@ -37,7 +35,7 @@ const PlaceForm = ({ onCreatePlace }) => {
         <Text style={styles.label}>Title</Text>
         <TextInput
           style={styles.input}
-          onChange={changeTitleHandler}
+          onChangeText={changeTitleHandler}
           value={enteredTitle}
         />
       </View>
@@ -46,7 +44,7 @@ const PlaceForm = ({ onCreatePlace }) => {
       <Button onPress={savePlaceHandler}>Add Place</Button>
     </ScrollView>
   );
-};
+}
 
 export default PlaceForm;
 

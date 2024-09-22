@@ -1,4 +1,4 @@
-
+const GEOAPIFY_API_KEY="f6cf0c814f3944b0bdc77a1662a18224"
 
 export function getMapPreview(lat, lng) {
   const imagePreviewUrl = `https://maps.geoapify.com/v1/staticmap?apiKey=${GEOAPIFY_API_KEY}&format=jpeg&center=lonlat:${lng},${lat}&marker=lonlat:${lng},${lat};color:%23ff0000;size:medium`;
@@ -15,6 +15,6 @@ export async function getAddress(lat, lng) {
   }
   const data = await response.json();
   const address = await data.results[0].formatted;
-  console.log(address);
+  // console.log(address);
   return address;
 }
